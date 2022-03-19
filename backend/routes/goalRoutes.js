@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getGoals } = require('../controller/goalController')
+const { getGoals, setGoal, updateGoal, deleteGoal } = require('../controller/goalController')
 
 
 router.get('/', getGoals
@@ -9,19 +9,10 @@ router.get('/', getGoals
 //   res.status(200).json({message: 'Get Goals'})}
 )
 
-router.post('/', (req, res) => {
-  // res.send('Get Goals')
-  res.status(200).json({message: 'Set Goal'})
-})
+router.post('/', setGoal)
 
-router.put('/:id', (req, res) => {
-  // res.send('Get Goals')
-  res.status(200).json({message: `Update goal ${req.params.id} `})
-})
+router.put('/:id', updateGoal)
 
-router.delete('/:id', (req, res) => {
-  // res.send('Get Goals')
-  res.status(200).json({message: `Delete goal ${req.params.id} `})
-})
+router.delete('/:id', deleteGoal)
 
 module.exports = router
