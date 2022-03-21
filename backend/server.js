@@ -1,16 +1,19 @@
-const express = require('express')
-const colors = require('colors')
-const dotenv = require('dotenv').config()
-const { errorHandler } = require('./middleware/errorMiddleware')
-const port = process.env.PORT || 5000 //set up PORT from .env
+const express = require('express');
+const colors = require('colors');
+const dotenv = require('dotenv').config();
+const { errorHandler } = require('./middleware/errorMiddleware');
+const connectDB = require('./config/db');
+const port = process.env.PORT || 5000; //set up PORT from .env
 
-const app = express() //LOAD UP express
+connectDB();
 
-app.use(express.json()) // LETS YOU PASS TEXT BODY WITH POSTMAN
-app.use(express.urlencoded({ extended: false })) // LETS YOU PASS TEXT BODY WITH POSTMAN
+const app = express(); //LOAD UP express
 
-app.use('/api/goals', require('./routes/goalRoutes'))
+app.use(express.json()); // LETS YOU PASS TEXT BODY WITH POSTMAN
+app.use(express.urlencoded({ extended: false })); // LETS YOU PASS TEXT BODY WITH POSTMAN
 
-app.use(errorHandler) // PASS ERROR HANDLER
+app.use('/api/goals', require('./routes/goalRoutes'));
 
-app.listen(port, () => console.log(`Server running on port ${port}`))
+app.use(errorHandler); // PASS ERROR HANDLER
+
+app.listen(port, () => console.log(`Server running on port ${port}`));
