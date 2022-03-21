@@ -6,7 +6,9 @@ const Goal = require('../models/goalModel'); //IMPORT MODEL
 // @routes GET /api/goals
 // @access Private
 const getGoals = asyncHandler( async (req, res) => {
-  res.status(200).json({message: `Get goals`})
+  const goals = await Goal.find() // GET GOALS FROM MODEL
+
+  res.status(200).json(goals)
 })
 
 // @descGet Set goal
@@ -16,9 +18,13 @@ const setGoal = asyncHandler( async (req, res) => {
   if(!req.body.text){
     res.status(400)
     throw new Error('Please add some text')
-  } 
+  }
 
-  res.status(200).json({message: 'Set Goal'})
+  const goal = await Goal.create({ // CREATE NEW GOAL
+    text: req.body.text
+  })
+
+  res.status(200).json(goal)
 })
 
 // @descGet Update goal
