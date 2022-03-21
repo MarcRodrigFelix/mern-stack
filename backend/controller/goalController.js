@@ -1,4 +1,5 @@
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
+const Goal = require('../models/goalModel'); //IMPORT MODEL
 
 
 // @descGet Get goals
